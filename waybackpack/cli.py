@@ -1,11 +1,27 @@
 #!/usr/bin/env python
-from .session import Session
-from .pack import Pack
-from .cdx import search
-from .version import __version__
-from .settings import DEFAULT_USER_AGENT, DEFAULT_ROOT
+from waybackpack.session import Session
+from waybackpack.pack import Pack
+from waybackpack.cdx import search
+from waybackpack.version import __version__
+from waybackpack.settings import DEFAULT_USER_AGENT, DEFAULT_ROOT
 import argparse
 import logging
+
+def filter_snapshots(snapshots):
+    '''
+    Filters out snapshots and get only one snapshot per month
+    '''
+    last = ''
+    filtered_snapshots = []
+    
+    for snapshot in snapshots:
+        current = snapshot['timestamp'][:6]
+        if current != last:
+            filtered_snapshots.append(snapshot)
+            last = current
+
+    return filtered_snapshots
+        
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -92,6 +108,8 @@ def main():
         collapse=args.collapse
     )
 
+    snapshots = filter_snapshots(snapshots)
+
     timestamps = [ snap["timestamp"] for snap in snapshots ]
 
     pack = Pack(
@@ -112,5 +130,4 @@ def main():
         urls = (a.get_archive_url(flag) for a in pack.assets)
         print("\n".join(urls))
 
-if __name__ == "__main__":
-    main()
+main()
