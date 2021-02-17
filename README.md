@@ -1,47 +1,17 @@
-# waybackpack `v0.3.7`
+# Web Archive scraper
 
 Waybackpack is a command-line tool that lets you download the entire Wayback Machine archive for a given URL.
 
-For instance, to download every copy of the Department of Labor's homepage through 1996 (which happens to be the first year the site was archived), you'd run:
+## How to run
 
 ```sh
-waybackpack dol.gov -d ~/Downloads/dol-wayback --to-date 1996
-```
-
-Result:
-
-```sh
-~/Downloads/dol-wayback/
-├── 19961102145216
-│   └── dol.gov
-│       └── index.html
-├── 19961103063843
-│   └── dol.gov
-│       └── index.html
-├── 19961222171647
-│   └── dol.gov
-│       └── index.html
-└── 19961223193614
-    └── dol.gov
-        └── index.html
-```
-
-Or, just to print the URLs of all archived snapshots:
-
-```sh
-waybackpack dol.gov --list
-```
-
-## Installation
-
-```
-pip install waybackpack
+python cli.py infopark.co -d infopark.co --follow-redirects
 ```
 
 ## Usage
 
 ```
-usage: waybackpack [-h] (-d DIR | --list) [--raw] [--root ROOT]
+usage: python cli.py [-h] (-d DIR | --list) [--raw] [--root ROOT]
                    [--from-date FROM_DATE] [--to-date TO_DATE]
                    [--user-agent USER_AGENT] [--follow-redirects]
                    [--uniques-only] [--collapse COLLAPSE] [--quiet]
@@ -90,16 +60,3 @@ optional arguments:
 
 Waypackback is written in pure Python, depends only on [`requests`](docs.python-requests.org), and should work wherever Python works. Should be compatible with both Python 2 and Python 3.
 
-## Thanks
-
-Many thanks to the following users for catching bugs, fixing typos, and proposing useful features:
-
-- [@grawity](https://github.com/grawity)
-- [@taggartk](https://github.com/taggartk)
-- [@jtemplon](https://github.com/jtemplon)
-- [@jwilk](https://github.com/jwilk)
-- [@wumpus](https://github.com/wumpus)
-- [@bevacqua](https://github.com/bevacqua)
-- [@ErikBorra](https://github.com/ErikBorra)
-- [@StevenACoffman](https://github.com/StevenACoffman)
-- [@Hunter-Github](https://github.com/Hunter-Github)
